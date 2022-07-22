@@ -1,7 +1,7 @@
 
 
 axes_str = """\
-wght	wght	400	100	1000
+wght	wght	400	100	900
 wdth	wdth	100	25	151
 opsz	opsz	14	8	144
 GRAD	GRAD	0	-1	1
@@ -289,4 +289,5 @@ avar.AxisSegmentMap = []
 avar.VarIdxMap = varIdxMap
 avar.VarStore = store
 
+print("Saving out.ttf")
 font.save('out.ttf')
