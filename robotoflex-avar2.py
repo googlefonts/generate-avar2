@@ -207,6 +207,15 @@ for axis in derived_axes:
     Axis.axisNameID = font['name'].addName(axis)
     fvar.axes.append(Axis)
 
+# Update our axis order
+axes_new = {}
+assert set(axis.axisTag for axis in fvar.axes) == set(axes.keys())
+for axis in fvar.axes:
+    axes_new[axis.axisTag] = axes[axis.axisTag]
+axes = axes_new
+del axis, axes_new
+
+
 """
 # Axes min/default/max seem to need doubling for source axes; doesn't work
 new_axes = {}
