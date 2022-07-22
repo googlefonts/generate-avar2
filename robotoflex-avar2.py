@@ -28,12 +28,10 @@ measurements_order = measurements_header.split()
 source_axes = measurements_order[2:]
 derived_axes = [axis for axis in axes.keys() if axis not in source_axes]
 
-measurements_str_commented_out = """\
-RobotoFlex-Slant.ufo	2048	186	898	186	158	1536	-416	1456	1052	1456
-RobotoFlex-opsz14-wght100-slnt-10.ufo	2048	84	835	84	85	1536	-416	1456	1052	1456
-"""
 measurements_str = """\
 RobotoFlex-Regular.ufo	2048	192	926	192	158	1536	-416	1456	1052	1456
+RobotoFlex-slnt-10.ufo	2048	186	898	186	158	1536	-416	1456	1052	1456
+RobotoFlex-opsz14-wght100-slnt-10.ufo	2048	84	835	84	85	1536	-416	1456	1052	1456
 RobotoFlex-GRAD-1.ufo	2048	131	947	131	96	1536	-416	1456	1052	1456
 RobotoFlex-GRAD1.ufo	2048	254	895	254	221	1536	-416	1456	1052	1456
 RobotoFlex-wght100.ufo	2048	97	972	97	88	1536	-416	1456	1052	1456
