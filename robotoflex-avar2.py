@@ -176,7 +176,8 @@ del location, key, values, tag, value
 from fontTools import ttLib
 from fontTools.varLib.instancer import instantiateVariableFont
 
-# ~/fonttools/fonttools varLib.instancer RobotoFlex\[GRAD\,XOPQ\,XTRA\,YOPQ\,YTAS\,YTDE\,YTFI\,YTLC\,YTUC\,opsz\,slnt\,wdth\,wght\].ttf wdth=100 wght=400 opsz=14 slnt=0
+# Somehow we can move slnt axis to source and it works
+# ~/fonttools/fonttools varLib.instancer RobotoFlex\[GRAD\,XOPQ\,XTRA\,YOPQ\,YTAS\,YTDE\,YTFI\,YTLC\,YTUC\,opsz\,slnt\,wdth\,wght\].ttf wdth=100 wght=400 opsz=14
 pins = {axis:axes[axis][1] for axis in derived_axes}
 #print("Loading RobotoFlex full font")
 #font = ttLib.TTFont('RobotoFlex[GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght].ttf')
