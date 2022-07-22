@@ -189,9 +189,9 @@ font = ttLib.TTFont('RobotoFlex[GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,ops
 
 fvar = font['fvar']
 
-print("Hiding source axes in fvar")
-for axis in fvar.axes:
-    axis.flags |= 1
+#print("Hiding source axes in fvar")
+#for axis in fvar.axes:
+#    axis.flags |= 1
 
 print("Nuking all named instances")
 fvar.instances = []
