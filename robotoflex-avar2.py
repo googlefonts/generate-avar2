@@ -159,29 +159,6 @@ for k1,v1 in measurements.items():
         if v1 == v2:
             print("Duplicate measurements for %s and %s" % (k1, k2))
 
-"""
-# Axes min/default/max seem to need doubling for source axes; doesn't work
-new_axes = {}
-for tag,value in axes.items():
-    if tag in source_axes:
-        (min_v,default_v,max_v) = value
-        value = (2*min_v, 2*default_v, 2*max_v)
-    new_axes[tag] = value
-axes = new_axes
-del new_axes, value, min_v, default_v, max_v
-"""
-
-# Axes min/default/max seem to be wrong. Update manually.
-# First measurement is for base master:
-orig_axes = axes.copy()
-name,default_loc = list(measurements.items())[0]
-min_loc = {axis:min(m[axis] for m in measurements.values()) for axis in source_axes}
-max_loc = {axis:max(m[axis] for m in measurements.values()) for axis in source_axes}
-assert name.find('Regular')
-for axis in source_axes:
-    axes[axis] = (min_loc[axis], default_loc[axis], max_loc[axis])
-del name, axis, default_loc, min_loc, max_loc
-
 
 import re
 derived_locations = {}
@@ -229,6 +206,30 @@ for axis in derived_axes:
     Axis.flags = 0
     Axis.axisNameID = font['name'].addName(axis)
     fvar.axes.append(Axis)
+
+"""
+# Axes min/default/max seem to need doubling for source axes; doesn't work
+new_axes = {}
+for tag,value in axes.items():
+    if tag in source_axes:
+        (min_v,default_v,max_v) = value
+        value = (2*min_v, 2*default_v, 2*max_v)
+    new_axes[tag] = value
+axes = new_axes
+del new_axes, value, min_v, default_v, max_v
+"""
+
+# Axes min/default/max seem to be wrong. Update manually.
+# First measurement is for base master:
+orig_axes = axes.copy()
+name,default_loc = list(measurements.items())[0]
+min_loc = {axis:min(m[axis] for m in measurements.values()) for axis in source_axes}
+max_loc = {axis:max(m[axis] for m in measurements.values()) for axis in source_axes}
+assert name.find('Regular')
+for axis in source_axes:
+    axes[axis] = (min_loc[axis], default_loc[axis], max_loc[axis])
+del name, axis, default_loc, min_loc, max_loc
+
 
 print("Modeling avar2")
 from fontTools.varLib import models
