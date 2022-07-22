@@ -86,6 +86,9 @@ RobotoFlex-opsz144-wght100-wdth25.ufo	2048	6	144	6	6	1456	-416	1456	914	1456
 RobotoFlex-opsz144-wght900-wdth25.ufo	2048	490	520	490	497	1456	-388	1456	914	1456
 RobotoFlex-opsz144-wght100-wdth151.ufo	2048	10	1270	10	10	1456	-416	1456	914	1455
 RobotoFlex-opsz144-wght100-wdth25.ufo	2048	6	144	6	6	1456	-416	1456	914	1456
+"""
+
+"""
 RobotoExtremo-opsz144-wght400-wdth100-XOPQ27.ufo	2048	0	-444	748	86	98	0	1900	1456	1456
 RobotoExtremo-opsz144-wght100.ufo	2048	0	-444	860	92	8	0	1900	1456	1456
 RobotoExtremo-opsz144-wght400-wdth25-XOPQ27.ufo	2048	0	-416	162	42	104	0	1872	1456	1456
@@ -170,7 +173,7 @@ del new_axes, value, min_v, default_v, max_v
 
 # Axes min/default/max seem to be wrong. Update manually.
 # First measurement is for base master:
-print(len(list(measurements.items())[0]))
+orig_axes = axes.copy()
 name,default_loc = list(measurements.items())[0]
 min_loc = {axis:min(m[axis] for m in measurements.values()) for axis in source_axes}
 max_loc = {axis:max(m[axis] for m in measurements.values()) for axis in source_axes}
@@ -231,20 +234,30 @@ print("Modeling avar2")
 from fontTools.varLib import models
 from fontTools.varLib import varStore
 from fontTools.ttLib.tables import otTables
-source_locations = {key:models.normalizeLocation(loc, axes) for key,loc in measurements.items()}
-for k1,v1 in enumerate(source_locations):
-    for k2,v2 in enumerate(source_locations):
+
+source_locations_normalized = {key:models.normalizeLocation(loc, axes) for key,loc in measurements.items()}
+for k1,v1 in source_locations_normalized.items():
+    for k2,v2 in source_locations_normalized.items():
         if k1 == k2:
             continue
         if v1 == v2:
-            print("Duplicate measurements for %s and %s: %s" % (k1, k2, v1))
+            print("Duplicate source locations for %s and %s: %s" % (k1, k2, v1))
             abort
-model = models.VariationModel(source_locations.values(), list(axes.keys()))
-store_builder = varStore.OnlineVarStoreBuilder(source_axes)
+derived_locations_normalized = {key:models.normalizeLocation(loc, orig_axes) for key,loc in derived_locations.items()}
+for k1,v1 in derived_locations_normalized.items():
+    for k2,v2 in derived_locations_normalized.items():
+        if k1 == k2:
+            continue
+        if v1 == v2:
+            print("Duplicate derived locations for %s and %s: %s" % (k1, k2, v1))
+            abort
+
+model = models.VariationModel(derived_locations_normalized.values(), list(axes.keys()))
+store_builder = varStore.OnlineVarStoreBuilder(axes.keys())
 store_builder.setModel(model)
 varIdxes = {}
 for axis in axes:
-    masters = [models.normalizeLocation(m, axes).get(axis, 0)*(1<<14) for m in derived_locations.values()]
+    masters = [m.get(axis, 0)*(1<<14) for m in source_locations_normalized.values()]
     varIdxes[axis] = store_builder.storeMasters(masters)[1]
 store = store_builder.finish()
 mapping = store.optimize()
