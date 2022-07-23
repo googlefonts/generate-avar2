@@ -176,13 +176,14 @@ del location, key, values, tag, value
 from fontTools import ttLib
 from fontTools.varLib.instancer import instantiateVariableFont
 
-# Somehow we can move slnt axis to source and it works
-# ~/fonttools/fonttools varLib.instancer RobotoFlex\[GRAD\,XOPQ\,XTRA\,YOPQ\,YTAS\,YTDE\,YTFI\,YTLC\,YTUC\,opsz\,slnt\,wdth\,wght\].ttf wdth=100 wght=400 opsz=14
-pins = {axis:axes[axis][1] for axis in derived_axes}
+#pins = {axis:axes[axis][1] for axis in derived_axes}
 #print("Loading RobotoFlex full font")
 #font = ttLib.TTFont('RobotoFlex[GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght].ttf')
 #print("Pinning derived axes")
 #instantiateVariableFont(font, pins)
+
+# Somehow we can move slnt axis to source and it works
+# ~/fonttools/fonttools varLib.instancer RobotoFlex\[GRAD\,XOPQ\,XTRA\,YOPQ\,YTAS\,YTDE\,YTFI\,YTLC\,YTUC\,opsz\,slnt\,wdth\,wght\].ttf wdth=100 wght=400 opsz=14
 
 print("Loading RobotoFlex pinned font")
 font = ttLib.TTFont('RobotoFlex[GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght]-partial.ttf')
@@ -195,8 +196,10 @@ fvar = font['fvar']
 
 print("Nuking all named instances")
 fvar.instances = []
+fvar_axes = [ax.axisTag for ax in fvar.axes]
 print("Adding back derived axes to fvar")
 for axis in derived_axes:
+    if axis in fvar_axes: continue
     Axis = ttLib.getTableModule('fvar').Axis()
     Axis.axisTag = axis
     Axis.minValue = axes[axis][0]
