@@ -188,7 +188,10 @@ from fontTools.varLib.instancer import instantiateVariableFont
 print("Loading RobotoFlex pinned font")
 font = ttLib.TTFont('RobotoFlex[GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght]-partial.ttf')
 
+
+print("Loading fvar and gvar tables.")
 fvar = font['fvar']
+gvar = font['gvar']
 
 #print("Hiding source axes in fvar")
 #for axis in fvar.axes:
