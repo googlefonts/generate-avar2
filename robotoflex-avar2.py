@@ -208,6 +208,7 @@ for axis in derived_axes:
     Axis.flags = 0
     Axis.axisNameID = font['name'].addName(axis)
     fvar.axes.append(Axis)
+fvar_axes = [ax.axisTag for ax in fvar.axes]
 
 # Update our axis order
 axes_new = {}
@@ -287,7 +288,9 @@ avar_t = font['avar'] = ttLib.getTableClass('avar')()
 avar = avar_t.table = otTables.avar()
 avar.Version = 0x00020000
 avar.Reserved = 0
-avar.AxisSegmentMap = []
+segMap = otTables.AxisSegmentMap()
+segMap.AxisValueMap = []
+avar.AxisSegmentMap = [segMap] * len(fvar_axes)
 avar.VarIdxMap = varIdxMap
 avar.VarStore = store
 
