@@ -297,5 +297,5 @@ avar.AxisSegmentMap = [segMap] * len(fvar_axes)
 avar.VarIdxMap = varIdxMap
 avar.VarStore = store
 
-print("Saving out.ttf")
-font.save('out.ttf')
+print("Saving RobotoFlex-avar2.ttf")
+font.save('RobotoFlex-avar2.ttf')
