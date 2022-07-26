@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<truevalues format="1.0">
+  <font psname="AmstelvarAlpha">
+    
+    <axis name="opsz">
+      <location value="10">
+        <dimension name="XOPQ" xvalue="110"/>
+        <dimension name="YOPQ" xvalue="75"/>
+        <dimension name="YTLC" xvalue="75"/>
+      </location>
+      <location value="14">
+      </location>
+      <location value="72">
+        <dimension name="XTRA" xvalue="300"/>
+        <dimension name="YOPQ" xvalue="12"/>
+        <dimension name="YTLC" xvalue="475"/>
+      </location>
+    </axis>
+    
+    <axis name="wdth">
+      <location value="35">
+        <dimension name="XTRA" xvalue="42"/>
+        <dimension name="XOPQ" xvalue="70"/>
+        <dimension name="YOPQ" xvalue="45"/>
+        <dimension name="PWDT" xvalue="60"/>
+      </location>
+      <location value="100">
+      </location>
+    </axis>
+    
+    <axis name="wght">
+      <location value="100">
+        <dimension name="XOPQ" xvalue="38"/>
+        <dimension name="YOPQ" xvalue="25"/>
+        <dimension name="XTRA" xvalue="375"/>
+        <dimension name="YTSE" xvalue="8"/>
+        <dimension name="PWGT" xvalue="38"/>
+      </location>
+      <location value="400">
+      </location>
+      <location value="900">
+        <dimension name="XOPQ" xvalue="250"/>
+        <dimension name="XTRA" xvalue="250"/>
+        <dimension name="YTLC" xvalue="525"/>
+        <dimension name="PWGT" xvalue="250"/>
+      </location>
+    </axis>
+    
+    <axis name="GRAD">
+      <location value="88">
+        <dimension name="YOPQ" xvalue="25"/>
+        <dimension name="XOPQ" xvalue="25"/>
+        <dimension name="XTRA" xvalue="490"/>
+      </location>
+      <location value="100">
+      	<dimension name="YOPQ" xvalue="62"/>
+        <dimension name="XOPQ" xvalue="250"/>
+        <dimension name="XTRA" xvalue="460"/>
+      </location>
+    </axis>
+    
+  </font>
+  
+  <font psname="AmstelvarAlphaBlended">
+    
+    <axis name="wght">
+      <location value="100">
+        <dimension name="PWGT" xvalue="38"/>
+      </location>
+      <location value="900">
+        <dimension name="PWGT" xvalue="250"/>
+      </location>
+    </axis>
+    
+    <axis name="wdth">
+      <location value="100">
+        <dimension name="PWDT" xvalue="60"/>
+      </location>
+      <location value="900">
+        <dimension name="PWDT" xvalue="402"/>
+      </location>
+    </axis>
+    
+  </font>
+  
+</truevalues>
