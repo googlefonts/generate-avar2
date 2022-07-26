@@ -141,5 +141,5 @@ avar.AxisSegmentMap = [segMap] * len(fvar_axes)
 avar.VarIdxMap = varIdxMap
 avar.VarStore = store
 
-print("Saving Amstelvar-avar2.ttf")
-font.save('Amstelvar-avar2.ttf')
+print("Saving Amstelvar-avar2-from-truevalues.ttf")
+font.save('Amstelvar-avar2-from-truevalues.ttf')
