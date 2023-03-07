@@ -132,6 +132,9 @@ for axis in fvar.axes:
 
 print("Generating avar2")
 avar_t = font['avar'] = ttLib.getTableClass('avar')()
+avar_t.segments = {}
+for axis in fvar_axes:
+    avar_t.segments[axis] = {}
 avar = avar_t.table = otTables.avar()
 avar.Version = 0x00020000
 avar.Reserved = 0
