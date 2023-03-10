@@ -220,6 +220,24 @@ for axis in fvar.axes:
     tag = axis.axisTag
     varIdxMap.mapping.append(varIdxes[tag])
 
+print("Update various VarStores")
+stores = []
+if 'GDEF' in font:
+    stores.append(font['GDEF'].table.VarStore)
+if 'HVAR' in font:
+    stores.append(font['HVAR'].table.VarStore)
+if 'MVAR' in font:
+    stores.append(font['MVAR'].table.VarStore)
+nullRegion = otTables.VarRegionAxis()
+nullRegion.StartCoord = -1
+nullRegion.PeakCoord = 0
+nullRegion.EndCoord = 1
+for store in stores:
+    store.VarRegionList.RegionAxisCount = len(fvar_axes)
+    for region in store.VarRegionList.Region:
+        while len(region.VarRegionAxis) < len(fvar_axes):
+            region.VarRegionAxis.append(nullRegion)
+
 print("Generating avar2")
 avar_t = font['avar'] = ttLib.getTableClass('avar')()
 avar_t.segments = {}
