@@ -214,7 +214,7 @@ mapping = store.optimize()
 varIdxes = {axis:mapping[value] for axis,value in varIdxes.items()}
 del model, store_builder, mapping
 
-varIdxMap = otTables.VarIdxMap()
+varIdxMap = otTables.DeltaSetIndexMap()
 varIdxMap.mapping = []
 for axis in fvar.axes:
     tag = axis.axisTag
@@ -240,12 +240,11 @@ for store in stores:
 
 print("Generating avar2")
 avar_t = font['avar'] = ttLib.getTableClass('avar')()
+avar_t.majorVersion = 2
 avar_t.segments = {}
 for axis in fvar_axes:
     avar_t.segments[axis] = {}
 avar = avar_t.table = otTables.avar()
-avar.Version = 0x00020000
-avar.Reserved = 0
 segMap = otTables.AxisSegmentMap()
 segMap.AxisValueMap = []
 avar.AxisSegmentMap = [segMap] * len(fvar_axes)
