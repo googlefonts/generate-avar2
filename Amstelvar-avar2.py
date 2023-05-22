@@ -220,6 +220,19 @@ for axis in fvar.axes:
     tag = axis.axisTag
     varIdxMap.mapping.append(varIdxes[tag])
 
+print("Generating avar2")
+avar_t = font['avar'] = ttLib.getTableClass('avar')()
+avar_t.majorVersion = 2
+avar_t.segments = {}
+for axis in fvar_axes:
+    avar_t.segments[axis] = {}
+avar = avar_t.table = otTables.avar()
+segMap = otTables.AxisSegmentMap()
+segMap.AxisValueMap = []
+avar.AxisSegmentMap = [segMap] * len(fvar_axes)
+avar.VarIdxMap = varIdxMap
+avar.VarStore = store
+
 print("Update various VarStores")
 stores = []
 if 'GDEF' in font:
@@ -237,19 +250,6 @@ for store in stores:
     for region in store.VarRegionList.Region:
         while len(region.VarRegionAxis) < len(fvar_axes):
             region.VarRegionAxis.append(nullRegion)
-
-print("Generating avar2")
-avar_t = font['avar'] = ttLib.getTableClass('avar')()
-avar_t.majorVersion = 2
-avar_t.segments = {}
-for axis in fvar_axes:
-    avar_t.segments[axis] = {}
-avar = avar_t.table = otTables.avar()
-segMap = otTables.AxisSegmentMap()
-segMap.AxisValueMap = []
-avar.AxisSegmentMap = [segMap] * len(fvar_axes)
-avar.VarIdxMap = varIdxMap
-avar.VarStore = store
 
 print("Saving Amstelvar-avar2.ttf")
 font.save('Amstelvar-avar2.ttf')
