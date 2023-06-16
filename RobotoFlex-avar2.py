@@ -246,6 +246,31 @@ for axis in source_axes:
 del name, axis, default_loc, min_loc, max_loc
 
 
+print("Designspace snippet:")
+assert len(measurements) == len(derived_locations)
+print("	<mappings>")
+for inputLocation, outputLocation in zip(derived_locations.values(), measurements.values()):
+
+	for tag, value in list(outputLocation.items()):
+		if value == axes[tag][1]:
+			del outputLocation[tag]
+
+	if inputLocation == outputLocation:
+		continue
+
+	print("	  <mapping>")
+	print("	    <input>")
+	for tag, value in list(inputLocation.items()):
+		print(f'	      <dimension name="{tag}" xvalue="{value}"/>')
+	print("	    </input>")
+	print("	    <output>")
+	for tag, value in list(outputLocation.items()):
+		print(f'	      <dimension name="{tag}" xvalue="{value}"/>')
+	print("	    </output>")
+	print("	  </mapping>")
+print("	</mappings>")
+
+
 print("Modeling avar2")
 from fontTools.varLib import models
 from fontTools.varLib import varStore
