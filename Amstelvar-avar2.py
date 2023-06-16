@@ -206,9 +206,16 @@ model = models.VariationModel(derived_locations_normalized.values(), list(axes.k
 store_builder = varStore.OnlineVarStoreBuilder(axes.keys())
 store_builder.setModel(model)
 varIdxes = {}
+from fontTools.misc.fixedTools import floatToFixed as fl2fi
 for axis in axes:
-    masters = [m.get(axis, 0)*(1<<14) for m in source_locations_normalized.values()]
-    varIdxes[axis] = store_builder.storeMasters(masters)[1]
+    masterValues = []
+    for vo, vi in zip(source_locations_normalized.values(), derived_locations_normalized.values()):
+        if axis not in vo:
+            masterValues.append(0)
+            continue
+        v = vo[axis] - vi.get(axis, 0)
+        masterValues.append(fl2fi(v, 14))
+    varIdxes[axis] = store_builder.storeMasters(masterValues)[1]
 store = store_builder.finish()
 mapping = store.optimize()
 varIdxes = {axis:mapping[value] for axis,value in varIdxes.items()}
