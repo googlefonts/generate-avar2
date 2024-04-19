@@ -117,13 +117,15 @@ store_builder = varStore.OnlineVarStoreBuilder(axes.keys())
 store_builder.setModel(model)
 varIdxes = {}
 from fontTools.misc.fixedTools import floatToFixed as fl2fi
-for axis in axes:
+for i, axis in enumerate(axes):
     masterValues = []
-    for vo, vi in zip(source_locations_normalized.values(), derived_locations_normalized.values()):
+    for j, (vo, vi) in enumerate(zip(source_locations_normalized.values(), derived_locations_normalized.values())):
         if axis not in vo:
             masterValues.append(0)
             continue
-        v = vo[axis] - vi.get(axis, 0)
+        v = vo[axis]
+        if i == j:
+            v -= vi.get(axis, 0)
         masterValues.append(fl2fi(v, 14))
     varIdxes[axis] = store_builder.storeMasters(masterValues)[1]
 store = store_builder.finish()
